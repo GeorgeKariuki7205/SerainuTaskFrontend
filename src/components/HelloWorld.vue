@@ -1,151 +1,219 @@
 <template>
   <v-container>
-    <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
+    <v-row>
+      <v-col cols="4" md="4">
+        <v-card style="padding-left:5%;padding-right:5%;padding-bottom:5%;">
+          <v-card-title class="text-center">
+            <p>Top western road trips</p>
+          </v-card-title>          
+          <canvas
+            id="canvas"
+            style="margin-top: -30%"
+            height="200"
+            width="200"
+          ></canvas>
+        </v-card>
       </v-col>
+      <v-col cols="4" md="4">
+        <v-card style="padding-left:5%;padding-right:5%;padding-bottom:5%;">
+          <v-card-title> Top western road trips </v-card-title>          
+          <v-simple-table>
+            <template class="ma-3" v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-left">Name</th>
+                  <th class="text-left">Calories</th>
+                </tr>
+                <tr>
+                  <td rowspan="2" class="text-left">Name</td>
+                  <!-- <th class="text-left">Calories</th> -->
+                </tr>
 
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
-        </h1>
-
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br>please join our online
-          <a
-            href="https://community.vuetifyjs.com"
-            target="_blank"
-          >Discord Community</a>
-        </p>
+              </thead>
+              <tbody>
+                <tr v-for="item in desserts" :key="item.name">
+                  <td>{{ item.name }}</td>
+                  <td style="background-color: green">{{ item.calories }}</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+        </v-card>
       </v-col>
+      <v-col cols="4" md="4">
+        <v-card style="padding-left:5%;padding-right:5%;padding-bottom:5%;">
+          <v-card-title> Top western road trips </v-card-title>
 
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          What's next?
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ next.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Important Links
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Ecosystem
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-row>
+          <v-card-subtitle> 1,000 miles of wonder </v-card-subtitle>
+          <canvas id="myChart" width="400" height="400"></canvas>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-  export default {
-    name: 'HelloWorld',
+import Chart from "chart.js";
+import Chart2 from "chartjs-gauge";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+export default {
+  mounted() {
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Aqua"],
+        datasets: [
+          {
+            label: "# of Votes",
+            data: [12, 19, 3, 5, 2, 3, 14],
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+            ],
+            borderColor: [
+              "rgba(255, 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(255, 159, 64, 1)",
+              "rgba(255, 206, 86, 1)",
+              "rgba(75, 192, 192, 1)",
+              "rgba(153, 102, 255, 1)",
+              "rgba(255, 159, 64, 1)",
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+      },
+    });
+    console.log(myChart);
+    var ctx2 = document.getElementById("canvas").getContext("2d");
 
-    data: () => ({
-      ecosystem: [
-        {
-          text: 'vuetify-loader',
-          href: 'https://github.com/vuetifyjs/vuetify-loader',
+    var chart = new Chart2(ctx2, {
+      type: "gauge",
+      data: {
+        datasets: [
+          {
+            value: 48,
+            data: [25, 50, 75, 100],
+            backgroundColor: ["green", "yellow", "orange", "red"],
+            datalabels: {
+              color: "#FFFFFF",
+              backgroundColor: "rgba(0, 0, 0, 1.0)",
+              borderWidth: 0,
+              borderRadius: 5,
+              font: {
+                weight: "bold",
+              },
+              formatter: (value) => {
+                if (value >= 0 && value <= 25) {
+                  return "0% - 25%";
+                } else if (value > 25 && value <= 50) {
+                  return "26% - 50%";
+                } else if (value > 51 && value <= 75) {
+                  return "51% - 75%";
+                } else if (value > 76 && value <= 100) {
+                  return "76% - 100%";
+                } else {
+                  return " Unknown Value";
+                }
+              },
+            },
+          },
+        ],
+      },
+      plugins: [ChartDataLabels],
+      options: {
+        needle: {
+          radiusPercentage: 2,
+          widthPercentage: 3.2,
+          lengthPercentage: 80,
+          color: "rgba(0, 0, 0, 1)",
         },
-        {
-          text: 'github',
-          href: 'https://github.com/vuetifyjs/vuetify',
+        valueLabel: {
+          bottomMarginPercentage:-10,
+          display: true,
+          fontSize:15,
+          formatter: (value) => {
+            return Math.round(value) + " %  /  100%";
+          },
+          color: "rgba(255, 255, 255, 1)",
+          backgroundColor: "rgba(0, 0, 0, 1)",
+          borderRadius: 5,
+          padding: {
+            top: 10,
+            bottom: 10,
+          },
+          margin:{
+            top: 10,
+          }
         },
-        {
-          text: 'awesome-vuetify',
-          href: 'https://github.com/vuetifyjs/awesome-vuetify',
-        },
-      ],
-      importantLinks: [
-        {
-          text: 'Documentation',
-          href: 'https://vuetifyjs.com',
-        },
-        {
-          text: 'Chat',
-          href: 'https://community.vuetifyjs.com',
-        },
-        {
-          text: 'Made with Vuetify',
-          href: 'https://madewithvuejs.com/vuetify',
-        },
-        {
-          text: 'Twitter',
-          href: 'https://twitter.com/vuetifyjs',
-        },
-        {
-          text: 'Articles',
-          href: 'https://medium.com/vuetify',
-        },
-      ],
-      whatsNext: [
-        {
-          text: 'Explore components',
-          href: 'https://vuetifyjs.com/components/api-explorer',
-        },
-        {
-          text: 'Select a layout',
-          href: 'https://vuetifyjs.com/getting-started/pre-made-layouts',
-        },
-        {
-          text: 'Frequently Asked Questions',
-          href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
-        },
-      ],
-    }),
-  }
+      },
+    });
+
+    console.log(chart);
+  },
+
+  name: "HelloWorld",
+
+  data: () => ({
+    desserts: [
+      {
+        name: "Frozen Yogurt",
+        calories: 159,
+      },
+      {
+        name: "Ice cream sandwich",
+        calories: 237,
+      },
+      {
+        name: "Eclair",
+        calories: 262,
+      },
+      {
+        name: "Cupcake",
+        calories: 305,
+      },
+      {
+        name: "Gingerbread",
+        calories: 356,
+      },
+      {
+        name: "Jelly bean",
+        calories: 375,
+      },
+      {
+        name: "Lollipop",
+        calories: 392,
+      },
+      {
+        name: "Honeycomb",
+        calories: 408,
+      },
+      {
+        name: "Donut",
+        calories: 452,
+      },
+      {
+        name: "KitKat",
+        calories: 518,
+      },
+    ],
+  }),
+};
 </script>
