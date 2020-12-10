@@ -24,10 +24,15 @@
                   <th class="text-left">Name</th>
                   <th class="text-left">Calories</th>
                 </tr>
+                <tr>
+                  <td rowspan="2" class="text-left">Name</td>
+                  <!-- <th class="text-left">Calories</th> -->
+                </tr>
+
               </thead>
               <tbody>
                 <tr v-for="item in desserts" :key="item.name">
-                  <td style="background-color: red">{{ item.name }}</td>
+                  <td>{{ item.name }}</td>
                   <td style="background-color: green">{{ item.calories }}</td>
                 </tr>
               </tbody>
