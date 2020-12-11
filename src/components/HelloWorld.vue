@@ -9,11 +9,11 @@
           <v-card-subtitle style="color: black; text-align: center">
             <b>Exposure Score</b>
           </v-card-subtitle>
-          <p style="font-size: 13px">
+          <p style="font-size: 13px; margin-top: -3%">
             This core reflects the current exposure asociated with machines in
             your organisation.
           </p>
-          <p style="font-size: 13px">
+          <p style="font-size: 13px; margin-top: -3%">
             Score is potentially impacted by active exceptions.
           </p>
           <v-row>
@@ -29,7 +29,7 @@
             <v-col
               md="12"
               offset-md="0"
-              style="margin-top: -8%; text-align: center;font-size:10px;"
+              style="margin-top: -8%; text-align: center; font-size: 10px"
             >
               <v-chip class="ma-2" color="green"> </v-chip>
               0% - 25% Low
@@ -173,7 +173,7 @@
                             v-on="on"
                             v-if="
                               (row.validated / row.detacted) * 100 >= 0 &&
-                                (row.validated / row.detacted) * 100 <= 25
+                              (row.validated / row.detacted) * 100 <= 25
                             "
                             :key="index + 'third'"
                             style="
@@ -189,7 +189,7 @@
                             v-on="on"
                             v-if="
                               (row.validated / row.detacted) * 100 >= 26 &&
-                                (row.validated / row.detacted) * 100 <= 50
+                              (row.validated / row.detacted) * 100 <= 50
                             "
                             :key="index + 'third'"
                             style="
@@ -205,7 +205,7 @@
                             v-on="on"
                             v-if="
                               (row.validated / row.detacted) * 100 >= 51 &&
-                                (row.validated / row.detacted) * 100 <= 75
+                              (row.validated / row.detacted) * 100 <= 75
                             "
                             :key="index + 'third'"
                             style="
@@ -221,7 +221,7 @@
                             v-on="on"
                             v-if="
                               (row.validated / row.detacted) * 100 >= 76 &&
-                                (row.validated / row.detacted) * 100 <= 100
+                              (row.validated / row.detacted) * 100 <= 100
                             "
                             :key="index + 'third'"
                             style="
