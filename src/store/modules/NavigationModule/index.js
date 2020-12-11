@@ -4,7 +4,8 @@ const mutations = {};
 const actions = {
   fetchData() {
     axios
-      .get("https://serainutaskbackend.georgekprojects.tk/api/fetchData")
+      .get("http://127.0.0.1:8001/api/fetchData")
+      // https://serainutaskbackend.georgekprojects.tk/api/fetchData
       .then((response) => {
         if (response.status === 200) {
           state.data = response.data;

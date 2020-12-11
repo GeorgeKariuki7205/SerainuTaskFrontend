@@ -1,86 +1,170 @@
 <template>
-  <v-container fluid>
+  <v-container>
     <v-row>
-      <v-col md="4" offset-md="4">
+      <v-col md="6" offset-md="3">
         <v-card style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%">
           <v-card-title class="text-center">
-            <p>Top western road trips</p>
+            <b>Overall Threat Exposure Score.</b>
           </v-card-title>
-          <canvas
-            id="canvas"
-            style="margin-top: -30%"
-            height="200"
-            width="200"
-          ></canvas>
+          <v-card-subtitle style="color: black; text-align: center">
+            <b>Exposure Score</b>
+          </v-card-subtitle>
+          <p style="font-size: 13px">
+            This core reflects the current exposure asociated with machines in
+            your organisation.
+          </p>
+          <p style="font-size: 13px">
+            Score is potentially impacted by active exceptions.
+          </p>
+          <v-row>
+            <v-col md="6" offset-md="3">
+              <canvas
+                id="canvas"
+                style="margin-top: -30%"
+                height="200"
+                width="200"
+              ></canvas>
+            </v-col>
+
+            <v-col
+              md="12"
+              offset-md="0"
+              style="margin-top:-8%;text-align:center"
+            >
+              <v-chip class="ma-2" color="green"> </v-chip>
+              0% - 25% Low
+              <v-chip class="ma-2" color="yellow"> </v-chip>
+              26% - 50% Medium
+              <v-chip class="ma-2" color="orange"> </v-chip>
+              51% - 75% Highh
+              <v-chip class="ma-2" color="red"> </v-chip>
+              76% - 100% Very High
+            </v-col>
+          </v-row>
         </v-card>
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row style="text-align:center;">
       <template v-for="(data, index) in dataGetter">
         <v-col md="4" :key="index">
           <v-card
-            style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%"
+            style="
+              padding-left: 5%;
+              padding-right: 5%;
+              padding-bottom: 5%;
+              height: 100%;
+            "
           >
-            <v-card-title>
+            <v-card-title style="text-align: center; color: black">
               {{ data.indicatorDetails.description }}
             </v-card-title>
-             <canvas
-            id="canvas"
-            style="margin-top: -30%"
-            height="200"
-            width="200"
-          ></canvas>
-          
+            <v-card-subtitle style="color: black; text-align: center">
+              <b>TES Score For {{ data.indicatorDetails.name }} :</b>
+            </v-card-subtitle>
             <v-simple-table>
               <template class="ma-3">
                 <thead>
-                  <tr style="background-color:gray;">
-                    <td style="text-align: center">CVEQ Domain</td>
-                    <td style="text-align: center">CVEQ THREAT INDIVATOR</td>
-                    <td style="text-align: center">Deteacted</td>
-                    <td style="text-align: center">Validated</td>
+                  <tr style="background-color: #fcdede">
+                    <td
+                      style="
+                        text-align: center;
+                        font-size: 10px;
+                        text-decoration: bold;
+                      "
+                    >
+                      <b>CVEQ Domain</b>
+                    </td>
+                    <td style="text-align: center; font-size: 10px">
+                      <b>CVEQ Threat Indicator</b>
+                    </td>
+                    <td style="text-align: center; font-size: 10px">
+                      <b>Deteacted</b>
+                    </td>
+                    <td style="text-align: center; font-size: 10px">
+                      <b>Validated</b>
+                    </td>
                   </tr>
                 </thead>
                 <tbody>
                   <template v-for="(row, index) in data.CVECThreatIndicators">
                     <tr :key="index">
-                      <td :key="index + 'first'">{{ row.uniqueIdentifier }}</td>
-                      <td :key="index + 'second'" style="text-align: center">
+                      <td
+                        :key="index + 'first'"
+                        style="text-align: center; font-size: 10px"
+                      >
+                        {{ row.uniqueIdentifier }}
+                      </td>
+                      <td
+                        :key="index + 'second'"
+                        style="text-align: center; font-size: 10px"
+                      >
                         {{ row.name }}
                       </td>
 
                       <!-- STYLE BY COLOR. -->
+                      <v-tooltip left style="background-color:black;color:red;">
+                        <template v-slot:activator="{ on, attrs }">
+                          <td
+                            v-bind="attrs"
+                            v-on="on"
+                            v-if="row.detacted >= 0 && row.detacted <= 1.25"
+                            :key="index + 'third'"
+                            style="
+                              background-color: rgb(0, 255, 0, 0.4);
+                              text-align: center;
+                              font-size: 10px;
+                            "
+                          >
+                            {{ row.detacted }}
+                          </td>
+                          <td
+                            v-bind="attrs"
+                            v-on="on"
+                            v-if="row.detacted >= 1.26 && row.detacted <= 2.5"
+                            :key="index + 'third'"
+                            style="
+                              background-color: yellow;
+                              text-align: center;
+                              font-size: 10px;
+                            "
+                          >
+                            {{ row.detacted }}
+                          </td>
+                          <td
+                            v-bind="attrs"
+                            v-on="on"
+                            v-if="row.detacted >= 2.6 && row.detacted <= 3.75"
+                            :key="index + 'third'"
+                            style="
+                              background-color: orange;
+                              text-align: center;
+                              font-size: 10px;
+                            "
+                          >
+                            {{ row.detacted }}
+                          </td>
+                          <td
+                            v-bind="attrs"
+                            v-on="on"
+                            v-if="row.detacted >= 3.76 && row.detacted <= 5"
+                            :key="index + 'third'"
+                            style="
+                              background-color: rgb(255, 0, 0, 0.4);
+                              text-align: center;
+                              font-size: 10px;
+                            "
+                          >
+                            {{ row.detacted }}
+                          </td>
+                        </template>
+                        <span>{{ row.name }}</span>
+                      </v-tooltip>
 
                       <td
-                        v-if="row.detacted >= 0 && row.detacted <= 1.25"
-                        :key="index + 'third'"
-                        style=" background-color:rgb(0,255,0,0.4);text-align: center"
+                        :key="index + 'fourth'"
+                        style="text-align: center; font-size: 10px"
                       >
-                        {{ row.detacted }}
-                      </td>
-                      <td
-                        v-if="row.detacted >= 1.26 && row.detacted <= 2.5"
-                        :key="index + 'third'"
-                        style=" background-color:yellow;text-align: center"
-                      >
-                        {{ row.detacted }}
-                      </td>
-                      <td
-                        v-if="row.detacted >= 2.6 && row.detacted <= 3.75"
-                        :key="index + 'third'"
-                        style=" background-color:orange;text-align: center"
-                      >
-                        {{ row.detacted }}
-                      </td>
-                      <td
-                        v-if="row.detacted >= 3.76 && row.detacted <= 5"
-                        :key="index + 'third'"
-                        style=" background-color:rgb(255,0,0,0.4);text-align: center"
-                      >
-                        {{ row.detacted }}
-                      </td>
-                      <td :key="index + 'fourth'" style="text-align: center">
                         {{ row.validated }}
                       </td>
                     </tr>
@@ -98,7 +182,7 @@
 <script>
 // import Chart from "chart.js";
 import Chart2 from "chartjs-gauge";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+// import ChartDataLabels from "chartjs-plugin-datalabels";
 import { mapGetters } from "vuex";
 export default {
   computed: {
@@ -115,7 +199,7 @@ export default {
     //         label: "# of Votes",
     //         data: [12, 19, 3, 5, 2, 3, 14],
     //         backgroundColor: [
-    //           "rgba(255, 99, 132, 0.2)",
+    //           "rgba(255, 99, 102, 0.2)",
     //           "rgba(54, 162, 235, 0.2)",
     //           "rgba(255, 206, 86, 0.2)",
     //           "rgba(255, 159, 64, 0.2)",
@@ -124,7 +208,7 @@ export default {
     //           "rgba(255, 159, 64, 0.2)",
     //         ],
     //         borderColor: [
-    //           "rgba(255, 99, 132, 1)",
+    //           "rgba(255, 99, 102, 1)",
     //           "rgba(54, 162, 235, 1)",
     //           "rgba(255, 159, 64, 1)",
     //           "rgba(255, 206, 86, 1)",
@@ -159,32 +243,32 @@ export default {
             value: 48,
             data: [25, 50, 75, 100],
             backgroundColor: ["green", "yellow", "orange", "red"],
-            datalabels: {
-              color: "#FFFFFF",
-              backgroundColor: "rgba(0, 0, 0, 1.0)",
-              borderWidth: 0,
-              borderRadius: 5,
-              font: {
-                weight: "bold",
-              },
-              formatter: (value) => {
-                if (value >= 0 && value <= 25) {
-                  return "0% - 25%";
-                } else if (value > 25 && value <= 50) {
-                  return "26% - 50%";
-                } else if (value > 51 && value <= 75) {
-                  return "51% - 75%";
-                } else if (value > 76 && value <= 100) {
-                  return "76% - 100%";
-                } else {
-                  return " Unknown Value";
-                }
-              },
-            },
+            // datalabels: {
+            //   color: "#FFFFFF",
+            //   backgroundColor: "rgba(0, 0, 0, 1.0)",
+            //   borderWidth: 0,
+            //   borderRadius: 5,
+            //   font: {
+            //     weight: "bold",
+            //   },
+            //   formatter: (value) => {
+            //     if (value >= 0 && value <= 25) {
+            //       return "0% - 25%";
+            //     } else if (value > 25 && value <= 50) {
+            //       return "26% - 50%";
+            //     } else if (value > 51 && value <= 75) {
+            //       return "51% - 75%";
+            //     } else if (value > 76 && value <= 100) {
+            //       return "76% - 100%";
+            //     } else {
+            //       return " Unknown Value";
+            //     }
+            //   },
+            // },
           },
         ],
       },
-      plugins: [ChartDataLabels],
+      // plugins: [ChartDataLabels],
       options: {
         needle: {
           radiusPercentage: 2,
