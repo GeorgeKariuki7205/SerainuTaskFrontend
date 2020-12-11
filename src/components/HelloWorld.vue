@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col md="6" offset-md="3">
+      <v-col md="4">
         <v-card style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%">
           <v-card-title class="text-center">
             <b>Overall Threat Exposure Score.</b>
@@ -31,21 +31,38 @@
               offset-md="0"
               style="margin-top: -8%; text-align: center; font-size: 10px"
             >
-              <v-chip class="ma-2" color="green"> </v-chip>
+              <svg height="16" width="16">
+                <circle cx="8" cy="8" r="8" fill="green" />
+                Sorry, your browser does not support inline SVG.
+              </svg>
               0% - 25% Low
-              <v-chip class="ma-2" color="yellow"> </v-chip>
+              <svg height="16" width="16">
+                <circle cx="8" cy="8" r="8" fill="yellow" />
+                Sorry, your browser does not support inline SVG.
+              </svg>
               26% - 50% Medium
-              <v-chip class="ma-2" color="orange"> </v-chip>
+              <svg height="16" width="16">
+                <circle cx="8" cy="8" r="8" fill="orange" />
+                Sorry, your browser does not support inline SVG.
+              </svg>
               51% - 75% High
-              <v-chip class="ma-2" color="red"> </v-chip>
+              <svg height="16" width="16">
+                <circle cx="8" cy="8" r="8" fill="red" />
+                Sorry, your browser does not support inline SVG.
+              </svg>
               76% - 100% Very High
+            </v-col>
+            <v-col>
+              <canvas
+                id="line"
+                style="margin-top: -6%"
+                height="90"
+                width="200"
+              ></canvas>
             </v-col>
           </v-row>
         </v-card>
       </v-col>
-    </v-row>
-
-    <v-row style="text-align: center">
       <template v-for="(data, index) in dataGetter">
         <v-col md="4" :key="index">
           <v-card
@@ -173,7 +190,7 @@
                             v-on="on"
                             v-if="
                               (row.validated / row.detacted) * 100 >= 0 &&
-                              (row.validated / row.detacted) * 100 <= 25
+                                (row.validated / row.detacted) * 100 <= 25
                             "
                             :key="index + 'third'"
                             style="
@@ -189,7 +206,7 @@
                             v-on="on"
                             v-if="
                               (row.validated / row.detacted) * 100 >= 26 &&
-                              (row.validated / row.detacted) * 100 <= 50
+                                (row.validated / row.detacted) * 100 <= 50
                             "
                             :key="index + 'third'"
                             style="
@@ -205,7 +222,7 @@
                             v-on="on"
                             v-if="
                               (row.validated / row.detacted) * 100 >= 51 &&
-                              (row.validated / row.detacted) * 100 <= 75
+                                (row.validated / row.detacted) * 100 <= 75
                             "
                             :key="index + 'third'"
                             style="
@@ -221,7 +238,7 @@
                             v-on="on"
                             v-if="
                               (row.validated / row.detacted) * 100 >= 76 &&
-                              (row.validated / row.detacted) * 100 <= 100
+                                (row.validated / row.detacted) * 100 <= 100
                             "
                             :key="index + 'third'"
                             style="
@@ -254,7 +271,7 @@
 </template>
 
 <script>
-// import Chart from "chart.js";
+import Chart from "chart.js";
 import Chart2 from "chartjs-gauge";
 // import ChartDataLabels from "chartjs-plugin-datalabels";
 import { mapGetters } from "vuex";
@@ -308,7 +325,31 @@ export default {
     // });
     // console.log(myChart);
     var ctx2 = document.getElementById("canvas").getContext("2d");
+    var ctx3 = document.getElementById("line").getContext("2d");
 
+    var chart3 = new Chart(ctx3, {
+      type: "line",
+      data: {
+        labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"],
+        datasets: [
+          {
+            label: "rate",
+            steppedLine: true,
+            data: [5, 8, 4, 10, 3, 1, 7],
+            borderColor: "blue",
+            fill: false,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        title: {
+          display: true,
+          text: "Exposure score over time. ",
+        },
+      },
+    });
+    console.log(chart3);
     var chart = new Chart2(ctx2, {
       type: "gauge",
       data: {
@@ -353,7 +394,7 @@ export default {
         valueLabel: {
           bottomMarginPercentage: -10,
           display: true,
-          fontSize: 15,
+          fontSize: 10,
           formatter: (value) => {
             return Math.round(value) + " %  /  100%";
           },
@@ -376,49 +417,6 @@ export default {
 
   name: "HelloWorld",
 
-  data: () => ({
-    desserts: [
-      {
-        name: "Frozen Yogurt",
-        calories: 159,
-      },
-      {
-        name: "Ice cream sandwich",
-        calories: 237,
-      },
-      {
-        name: "Eclair",
-        calories: 262,
-      },
-      {
-        name: "Cupcake",
-        calories: 305,
-      },
-      {
-        name: "Gingerbread",
-        calories: 356,
-      },
-      {
-        name: "Jelly bean",
-        calories: 375,
-      },
-      {
-        name: "Lollipop",
-        calories: 392,
-      },
-      {
-        name: "Honeycomb",
-        calories: 408,
-      },
-      {
-        name: "Donut",
-        calories: 452,
-      },
-      {
-        name: "KitKat",
-        calories: 518,
-      },
-    ],
-  }),
+  data: () => ({}),
 };
 </script>
