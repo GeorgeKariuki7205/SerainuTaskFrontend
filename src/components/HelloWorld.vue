@@ -29,14 +29,14 @@
             <v-col
               md="12"
               offset-md="0"
-              style="margin-top:-8%;text-align:center"
+              style="margin-top: -8%; text-align: center;font-size:10px;"
             >
               <v-chip class="ma-2" color="green"> </v-chip>
               0% - 25% Low
               <v-chip class="ma-2" color="yellow"> </v-chip>
               26% - 50% Medium
               <v-chip class="ma-2" color="orange"> </v-chip>
-              51% - 75% Highh
+              51% - 75% High
               <v-chip class="ma-2" color="red"> </v-chip>
               76% - 100% Very High
             </v-col>
@@ -45,7 +45,7 @@
       </v-col>
     </v-row>
 
-    <v-row style="text-align:center;">
+    <v-row style="text-align: center">
       <template v-for="(data, index) in dataGetter">
         <v-col md="4" :key="index">
           <v-card
@@ -102,8 +102,10 @@
                         {{ row.name }}
                       </td>
 
-                      <!-- STYLE BY COLOR. -->
-                      <v-tooltip left style="background-color:black;color:red;">
+                      <v-tooltip
+                        left
+                        style="background-color: black; color: red"
+                      >
                         <template v-slot:activator="{ on, attrs }">
                           <td
                             v-bind="attrs"
@@ -160,13 +162,85 @@
                         </template>
                         <span>{{ row.name }}</span>
                       </v-tooltip>
-
-                      <td
+                      <!-- STYLE BY COLOR. -->
+                      <v-tooltip
+                        left
+                        style="background-color: black; color: red"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <td
+                            v-bind="attrs"
+                            v-on="on"
+                            v-if="
+                              (row.validated / row.detacted) * 100 >= 0 &&
+                                (row.validated / row.detacted) * 100 <= 25
+                            "
+                            :key="index + 'third'"
+                            style="
+                              background-color: rgb(255, 0, 0, 0.4);
+                              text-align: center;
+                              font-size: 10px;
+                            "
+                          >
+                            {{ row.validated }}
+                          </td>
+                          <td
+                            v-bind="attrs"
+                            v-on="on"
+                            v-if="
+                              (row.validated / row.detacted) * 100 >= 26 &&
+                                (row.validated / row.detacted) * 100 <= 50
+                            "
+                            :key="index + 'third'"
+                            style="
+                              background-color: orange;
+                              text-align: center;
+                              font-size: 10px;
+                            "
+                          >
+                            {{ row.validated }}
+                          </td>
+                          <td
+                            v-bind="attrs"
+                            v-on="on"
+                            v-if="
+                              (row.validated / row.detacted) * 100 >= 51 &&
+                                (row.validated / row.detacted) * 100 <= 75
+                            "
+                            :key="index + 'third'"
+                            style="
+                              background-color: yellow;
+                              text-align: center;
+                              font-size: 10px;
+                            "
+                          >
+                            {{ row.validated }}
+                          </td>
+                          <td
+                            v-bind="attrs"
+                            v-on="on"
+                            v-if="
+                              (row.validated / row.detacted) * 100 >= 76 &&
+                                (row.validated / row.detacted) * 100 <= 100
+                            "
+                            :key="index + 'third'"
+                            style="
+                              text-align: center;
+                              font-size: 10px;
+                              background-color: rgb(0, 255, 0, 0.4);
+                            "
+                          >
+                            {{ row.validated }}
+                          </td>
+                        </template>
+                        <span>{{ row.name }}</span>
+                      </v-tooltip>
+                      <!-- <td
                         :key="index + 'fourth'"
                         style="text-align: center; font-size: 10px"
                       >
                         {{ row.validated }}
-                      </td>
+                      </td> -->
                     </tr>
                   </template>
                 </tbody>
