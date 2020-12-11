@@ -16,10 +16,18 @@
 
 <script>
 import HelloWorld from './components/HelloWorld';
-
+import { mapGetters } from "vuex";
 export default {
   name: 'App',
+  computed: {
+    ...mapGetters(["dataGetter"]),
+  },
+  created(){
 
+    // ! this wil be resposiblefor loading the data once the application is hit.
+
+    this.$store.dispatch("fetchData");
+  },
   components: {
     HelloWorld,
   },

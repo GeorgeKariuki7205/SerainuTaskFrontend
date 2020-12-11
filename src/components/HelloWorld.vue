@@ -1,11 +1,11 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row>
-      <v-col cols="4" md="4">
-        <v-card style="padding-left:5%;padding-right:5%;padding-bottom:5%;">
+      <v-col md="4" offset-md="4">
+        <v-card style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%">
           <v-card-title class="text-center">
             <p>Top western road trips</p>
-          </v-card-title>          
+          </v-card-title>
           <canvas
             id="canvas"
             style="margin-top: -30%"
@@ -14,94 +14,141 @@
           ></canvas>
         </v-card>
       </v-col>
-      <v-col cols="4" md="4">
-        <v-card style="padding-left:5%;padding-right:5%;padding-bottom:5%;">
-          <v-card-title> Top western road trips </v-card-title>          
-          <v-simple-table>
-            <template class="ma-3" v-slot:default>
-              <thead>
-                <tr>
-                  <th class="text-left">Name</th>
-                  <th class="text-left">Calories</th>
-                </tr>
-                <tr>
-                  <td rowspan="2" class="text-left">Name</td>
-                  <!-- <th class="text-left">Calories</th> -->
-                </tr>
+    </v-row>
 
-              </thead>
-              <tbody>
-                <tr v-for="item in desserts" :key="item.name">
-                  <td>{{ item.name }}</td>
-                  <td style="background-color: green">{{ item.calories }}</td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
-        </v-card>
-      </v-col>
-      <v-col cols="4" md="4">
-        <v-card style="padding-left:5%;padding-right:5%;padding-bottom:5%;">
-          <v-card-title> Top western road trips </v-card-title>
+    <v-row>
+      <template v-for="(data, index) in dataGetter">
+        <v-col md="4" :key="index">
+          <v-card
+            style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%"
+          >
+            <v-card-title>
+              {{ data.indicatorDetails.description }}
+            </v-card-title>
+             <canvas
+            id="canvas"
+            style="margin-top: -30%"
+            height="200"
+            width="200"
+          ></canvas>
+          
+            <v-simple-table>
+              <template class="ma-3">
+                <thead>
+                  <tr style="background-color:gray;">
+                    <td style="text-align: center">CVEQ Domain</td>
+                    <td style="text-align: center">CVEQ THREAT INDIVATOR</td>
+                    <td style="text-align: center">Deteacted</td>
+                    <td style="text-align: center">Validated</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template v-for="(row, index) in data.CVECThreatIndicators">
+                    <tr :key="index">
+                      <td :key="index + 'first'">{{ row.uniqueIdentifier }}</td>
+                      <td :key="index + 'second'" style="text-align: center">
+                        {{ row.name }}
+                      </td>
 
-          <v-card-subtitle> 1,000 miles of wonder </v-card-subtitle>
-          <canvas id="myChart" width="400" height="400"></canvas>
-        </v-card>
-      </v-col>
+                      <!-- STYLE BY COLOR. -->
+
+                      <td
+                        v-if="row.detacted >= 0 && row.detacted <= 1.25"
+                        :key="index + 'third'"
+                        style=" background-color:rgb(0,255,0,0.4);text-align: center"
+                      >
+                        {{ row.detacted }}
+                      </td>
+                      <td
+                        v-if="row.detacted >= 1.26 && row.detacted <= 2.5"
+                        :key="index + 'third'"
+                        style=" background-color:yellow;text-align: center"
+                      >
+                        {{ row.detacted }}
+                      </td>
+                      <td
+                        v-if="row.detacted >= 2.6 && row.detacted <= 3.75"
+                        :key="index + 'third'"
+                        style=" background-color:orange;text-align: center"
+                      >
+                        {{ row.detacted }}
+                      </td>
+                      <td
+                        v-if="row.detacted >= 3.76 && row.detacted <= 5"
+                        :key="index + 'third'"
+                        style=" background-color:rgb(255,0,0,0.4);text-align: center"
+                      >
+                        {{ row.detacted }}
+                      </td>
+                      <td :key="index + 'fourth'" style="text-align: center">
+                        {{ row.validated }}
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </v-card>
+        </v-col>
+      </template>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import Chart from "chart.js";
+// import Chart from "chart.js";
 import Chart2 from "chartjs-gauge";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { mapGetters } from "vuex";
 export default {
+  computed: {
+    ...mapGetters(["dataGetter"]),
+  },
   mounted() {
-    var ctx = document.getElementById("myChart").getContext("2d");
-    var myChart = new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Aqua"],
-        datasets: [
-          {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3, 14],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(255, 159, 64, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)",
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 159, 64, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)",
-            ],
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
-        },
-      },
-    });
-    console.log(myChart);
+    // var ctx = document.getElementById("myChart").getContext("2d");
+    // var myChart = new Chart(ctx, {
+    //   type: "bar",
+    //   data: {
+    //     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Aqua"],
+    //     datasets: [
+    //       {
+    //         label: "# of Votes",
+    //         data: [12, 19, 3, 5, 2, 3, 14],
+    //         backgroundColor: [
+    //           "rgba(255, 99, 132, 0.2)",
+    //           "rgba(54, 162, 235, 0.2)",
+    //           "rgba(255, 206, 86, 0.2)",
+    //           "rgba(255, 159, 64, 0.2)",
+    //           "rgba(75, 192, 192, 0.2)",
+    //           "rgba(153, 102, 255, 0.2)",
+    //           "rgba(255, 159, 64, 0.2)",
+    //         ],
+    //         borderColor: [
+    //           "rgba(255, 99, 132, 1)",
+    //           "rgba(54, 162, 235, 1)",
+    //           "rgba(255, 159, 64, 1)",
+    //           "rgba(255, 206, 86, 1)",
+    //           "rgba(75, 192, 192, 1)",
+    //           "rgba(153, 102, 255, 1)",
+    //           "rgba(255, 159, 64, 1)",
+    //         ],
+    //         borderWidth: 1,
+    //       },
+    //     ],
+    //   },
+    //   options: {
+    //     scales: {
+    //       yAxes: [
+    //         {
+    //           ticks: {
+    //             beginAtZero: true,
+    //           },
+    //         },
+    //       ],
+    //     },
+    //   },
+    // });
+    // console.log(myChart);
     var ctx2 = document.getElementById("canvas").getContext("2d");
 
     var chart = new Chart2(ctx2, {
@@ -146,9 +193,9 @@ export default {
           color: "rgba(0, 0, 0, 1)",
         },
         valueLabel: {
-          bottomMarginPercentage:-10,
+          bottomMarginPercentage: -10,
           display: true,
-          fontSize:15,
+          fontSize: 15,
           formatter: (value) => {
             return Math.round(value) + " %  /  100%";
           },
@@ -159,9 +206,9 @@ export default {
             top: 10,
             bottom: 10,
           },
-          margin:{
+          margin: {
             top: 10,
-          }
+          },
         },
       },
     });
