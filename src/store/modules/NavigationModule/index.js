@@ -12,8 +12,8 @@ const mutations = {
 const actions = {
   fetchData({commit}) {
     axios
-      .get("http://127.0.0.1:8001/api/fetchData")
-      // .get("https://serainutaskbackend.georgekprojects.tk/api/fetchData")      
+      // .get("http://127.0.0.1:8001/api/fetchData")
+      .get("https://serainutaskbackend.georgekprojects.tk/api/fetchData")      
       .then((response) => {
         if (response.status === 200) {          
           commit("UPDATING_STATE",response.data);
