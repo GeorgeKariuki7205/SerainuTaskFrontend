@@ -196,7 +196,7 @@
                             "
                             :key="index + 'third'"
                             style="
-                              background-color: rgb(255, 0, 0, 0.4);
+                              background-color: rgb(0, 255, 0, 0.4);
                               text-align: center;
                               font-size: 10px;
                             "
@@ -212,7 +212,7 @@
                             "
                             :key="index + 'third'"
                             style="
-                              background-color: orange;
+                              background-color: yellow;
                               text-align: center;
                               font-size: 10px;
                             "
@@ -228,7 +228,8 @@
                             "
                             :key="index + 'third'"
                             style="
-                              background-color: yellow;
+                              
+                              background-color: orange;
                               text-align: center;
                               font-size: 10px;
                             "
@@ -246,7 +247,8 @@
                             style="
                               text-align: center;
                               font-size: 10px;
-                              background-color: rgb(0, 255, 0, 0.4);
+                              
+                              background-color: rgb(255, 0, 0, 0.4);
                             "
                           >
                             {{ row.validated }}
