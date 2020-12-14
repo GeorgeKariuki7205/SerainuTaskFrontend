@@ -16,7 +16,7 @@
           "
         >
           <v-card-title class="text-center">
-            <b>Overall Threat Exposure Score.</b>
+            <b>Overall Cyberisk Score.</b>
           </v-card-title>
           <v-card-subtitle style="color: black; text-align: center">
             <b>Exposure Score</b>
