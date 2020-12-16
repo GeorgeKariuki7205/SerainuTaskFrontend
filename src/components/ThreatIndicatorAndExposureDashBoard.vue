@@ -333,7 +333,7 @@ export default {
         datasets: [
           {
             label: "rate",
-            steppedLine: true,
+            steppedLine: false,
             data: [5, 8, 4, 10, 3, 1, 7],
             borderColor: "blue",
             fill: false,
