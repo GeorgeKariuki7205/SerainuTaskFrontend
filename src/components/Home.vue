@@ -10,9 +10,9 @@
         <v-card
           style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%;height: 100%;"
         >
-          <v-card-title class="text-center" style="width:100%;">
+          <v-card-title class="text-center justify-center" style="width:100%;">
             <b>Organisation Details.</b>
-            <v-btn style="float:right;" icon color="blue">
+            <v-btn class="justify-right" style="float:right;" icon color="blue">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </v-card-title>
@@ -90,8 +90,8 @@
         <v-card
           style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%;height: 100%;"
         >
-          <v-card-title class="text-center">
-            <b>Organisation Users.</b>
+          <v-card-title class="text-center justify-center">
+            <b>Registered Orginiational Users.</b>
           </v-card-title>
           <v-card-subtitle style="color: black; text-align: center">
             <b>{{ organisationDetailSGetter.name_of_organisation }}</b>
@@ -109,10 +109,16 @@
                 :key="index"
                 v-for="(userRegistered, index) in usersRegisteredGetter"
               >
-                <td :key="index + 'name'">{{ userRegistered.name }}</td>
-                <td :key="index + 'email'">{{ userRegistered.email }}</td>
-                <td :key="index + 'role'">{{ userRegistered.role[0] }}</td>
-                <td :key="index + 'action'">
+                <td class="text-center" :key="index + 'name'">
+                  {{ userRegistered.name }}
+                </td>
+                <td class="text-center" :key="index + 'email'">
+                  {{ userRegistered.email }}
+                </td>
+                <td class="text-center" :key="index + 'role'">
+                  {{ userRegistered.role[0] }}
+                </td>
+                <td class="text-center" :key="index + 'action'">
                   <div class="d-inline ">
                     <v-btn class="d-inline" icon color="blue">
                       <v-icon>mdi-pencil</v-icon>
@@ -125,22 +131,26 @@
                   </div>
                 </td>
               </tr>
-
             </tbody>
           </v-simple-table>
-          <h4 style="text-align:center;" class="ma-4"> Logged In User:</h4>
+          <h4 style="text-align:center;" class="ma-4">Logged In User:</h4>
           <v-simple-table>
-             <thead>
+            <thead>
               <th>Name</th>
               <th>Email</th>
-              <th>Role</th>              
+              <th>Role</th>
+              <th>Action</th>
             </thead>
             <tbody>
               <tr>
-                <td>{{userDetailsGetter.name}}</td>
-                <td>{{userDetailsGetter.email}}</td>
-                <td>{{userRoleGetter['roles'][0]}}</td>
-                
+                <td class="text-center">{{ userDetailsGetter.name }}</td>
+                <td class="text-center">{{ userDetailsGetter.email }}</td>
+                <td class="text-center">{{ userRoleGetter["roles"][0] }}</td>
+                <td class="text-center">
+                  <v-btn class="d-inline" icon color="blue">
+                    <v-icon>mdi-pencil</v-icon>
+                  </v-btn>
+                </td>
               </tr>
             </tbody>
           </v-simple-table>

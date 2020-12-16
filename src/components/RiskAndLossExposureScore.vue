@@ -2,7 +2,7 @@
   <v-container>
     <v-divider></v-divider>
     <h2 style="text-align:center;font-family:'times new roman">
-      Risk And Loss Exposure Dashboard.
+      {{ organisationDetailSGetter.name_of_organisation }} Risk And Loss Exposure Score
     </h2>
     <v-divider></v-divider>
     <v-row>
@@ -76,57 +76,59 @@
         </v-card>
       </v-col>
       <v-col md="4">
-    <v-card style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%;height:100%">
-      <v-card-title class="text-center">
-        <b>Cyber Score Summary.</b>
-      </v-card-title>
-
-      <v-row align-content="center" justify="center" align-md="center">
-        <template v-for="(data, index2) in dataGetter">
-          <!-- <v-row :key="index2"> -->
-          <v-col md="6" :key="index2">
-            <v-card-subtitle
-              style="color:black;text-align:center;text-decoration:bold;"
-            >
-              <b>{{ data.indicatorDetails.description }}</b>
-            </v-card-subtitle>
-            <canvas
-              :id="'canvasGuageInitial' + index2"
-              style="margin-top: -25%"
-              width="100"
-              height="100"
-            ></canvas>
-          </v-col>
-          <!-- </v-row> -->
-        </template>
-        <v-col
-          md="12"
-          offset-md="0"
-          style="margin-top: -2%; text-align: center; font-size: 10px"
+        <v-card
+          style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%;height:100%"
         >
-          <svg height="16" width="16">
-            <circle cx="8" cy="8" r="8" fill="green" />
-            Sorry, your browser does not support inline SVG.
-          </svg>
-          0% - 25% Low
-          <svg height="16" width="16">
-            <circle cx="8" cy="8" r="8" fill="yellow" />
-            Sorry, your browser does not support inline SVG.
-          </svg>
-          26% - 50% Medium
-          <svg height="16" width="16">
-            <circle cx="8" cy="8" r="8" fill="orange" />
-            Sorry, your browser does not support inline SVG.
-          </svg>
-          51% - 75% High
-          <svg height="16" width="16">
-            <circle cx="8" cy="8" r="8" fill="red" />
-            Sorry, your browser does not support inline SVG.
-          </svg>
-          76% - 100% Very High
-        </v-col>
-      </v-row>
-    </v-card>
+          <v-card-title class="text-center">
+            <b>Cyber Score Summary.</b>
+          </v-card-title>
+
+          <v-row align-content="center" justify="center" align-md="center">
+            <template v-for="(data, index2) in dataGetter">
+              <!-- <v-row :key="index2"> -->
+              <v-col md="6" :key="index2">
+                <v-card-subtitle
+                  style="color:black;text-align:center;text-decoration:bold;"
+                >
+                  <b>{{ data.indicatorDetails.description }}</b>
+                </v-card-subtitle>
+                <canvas
+                  :id="'canvasGuageInitial' + index2"
+                  style="margin-top: -25%"
+                  width="100"
+                  height="100"
+                ></canvas>
+              </v-col>
+              <!-- </v-row> -->
+            </template>
+            <v-col
+              md="12"
+              offset-md="0"
+              style="margin-top: -2%; text-align: center; font-size: 10px"
+            >
+              <svg height="16" width="16">
+                <circle cx="8" cy="8" r="8" fill="green" />
+                Sorry, your browser does not support inline SVG.
+              </svg>
+              0% - 25% Low
+              <svg height="16" width="16">
+                <circle cx="8" cy="8" r="8" fill="yellow" />
+                Sorry, your browser does not support inline SVG.
+              </svg>
+              26% - 50% Medium
+              <svg height="16" width="16">
+                <circle cx="8" cy="8" r="8" fill="orange" />
+                Sorry, your browser does not support inline SVG.
+              </svg>
+              51% - 75% High
+              <svg height="16" width="16">
+                <circle cx="8" cy="8" r="8" fill="red" />
+                Sorry, your browser does not support inline SVG.
+              </svg>
+              76% - 100% Very High
+            </v-col>
+          </v-row>
+        </v-card>
       </v-col>
       <template v-for="(data, index) in dataGetter">
         <v-col md="4" :key="index">
@@ -365,64 +367,61 @@
         </v-col>
       </template>
     </v-row>
- <v-card style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%;margin-top:1%;">
-     <v-row>
-      <v-col md="6">
-       <canvas  id="line2" height="100" width="100"></canvas>
-      </v-col>
-                <v-col md="6">
-        <v-simple-table style="font-size:10px;font-family:'times new roman'">
-          <thead>
-            <tr style="background-color: #fcdede">
-              <th class="text-left">
-              <b style="color:black;">Risk Exposure</b>  
-              </th>
-              <th class="text-left">
-                <b style="color:black;">Risk Category</b>                
-              </th>
-              <th class="text-left">
-                <b style="color:black;">Risk Probability (Anually)</b>                  
-              </th>
-              <th class="text-left">
-                
-                <b style="color:black;">Annual Frequency</b>  
-              </th>
-              <th class="text-left">
-                <b style="color:black;">Loss Exposure</b>  
-                
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Actor: Cyber criminal Motivation: Financial Ganin</td>
-              <td>Los of data and or loss of service</td>
-              <td>40%</td>
-              <td>1 Event per year</td>
-              <td>19 Million</td>
-            </tr>
-            <tr>
-              <td>Actor: Cyber criminal Motivation: Financial Ganin</td>
-              <td>Los of data and or loss of service</td>
-              <td>40%</td>
-              <td>1 Event per year</td>
-              <td>19 Million</td>
-            </tr>
-            <tr>
-              <td>Actor: Cyber criminal Motivation: Financial Ganin</td>
-              <td>Los of data and or loss of service</td>
-              <td>40%</td>
-              <td>1 Event per year</td>
-              <td>19 Million</td>
-            </tr>
-          </tbody>
-        </v-simple-table>
-      </v-col>
-
-    </v-row>
-          
-        </v-card>
-  
+    <v-card
+      style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%;margin-top:1%;"
+    >
+      <v-row>
+        <v-col md="6">
+          <canvas id="line2" height="100" width="100"></canvas>
+        </v-col>
+        <v-col md="6">
+          <v-simple-table style="font-size:10px;font-family:'times new roman'">
+            <thead>
+              <tr style="background-color: #fcdede">
+                <th class="text-left">
+                  <b style="color:black;">Risk Exposure</b>
+                </th>
+                <th class="text-left">
+                  <b style="color:black;">Risk Category</b>
+                </th>
+                <th class="text-left">
+                  <b style="color:black;">Risk Probability (Anually)</b>
+                </th>
+                <th class="text-left">
+                  <b style="color:black;">Annual Frequency</b>
+                </th>
+                <th class="text-left">
+                  <b style="color:black;">Loss Exposure</b>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Actor: Cyber criminal Motivation: Financial Ganin</td>
+                <td>Los of data and or loss of service</td>
+                <td>40%</td>
+                <td>1 Event per year</td>
+                <td>19 Million</td>
+              </tr>
+              <tr>
+                <td>Actor: Cyber criminal Motivation: Financial Ganin</td>
+                <td>Los of data and or loss of service</td>
+                <td>40%</td>
+                <td>1 Event per year</td>
+                <td>19 Million</td>
+              </tr>
+              <tr>
+                <td>Actor: Cyber criminal Motivation: Financial Ganin</td>
+                <td>Los of data and or loss of service</td>
+                <td>40%</td>
+                <td>1 Event per year</td>
+                <td>19 Million</td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-col>
+      </v-row>
+    </v-card>
   </v-container>
 </template>
 
@@ -433,7 +432,7 @@ import Chart2 from "chartjs-gauge";
 import { mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["dataGetter"]),
+    ...mapGetters(["dataGetter", "organisationDetailSGetter"]),
   },
   methods: {},
   created() {},

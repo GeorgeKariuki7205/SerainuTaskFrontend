@@ -1,17 +1,30 @@
 <template>
-    <v-container>
-      <v-divider></v-divider>
-    <h2 style="text-align:center;font-family:'times new roman">Editing Data.</h2>
+  <v-container>
     <v-divider></v-divider>
-    </v-container>
+    <h2 style="text-align:center;font-family:'times new roman">
+      {{ organisationDetailSGetter.name_of_organisation }} Editing Data.
+    </h2>
+    <v-divider></v-divider>
+  </v-container>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-name:"EditThreatIndicators",
-}
+  computed: {
+    ...mapGetters([
+      "dataGetter",
+      "dataGettingStatusGetter",
+      "loginStatusGetter",
+      "successLogInGetter",
+      "userDetailsGetter",
+      "organisationDetailSGetter",
+      "userRoleGetter",
+      "usersRegisteredGetter",
+    ]),
+  },
+  name: "EditThreatIndicators",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

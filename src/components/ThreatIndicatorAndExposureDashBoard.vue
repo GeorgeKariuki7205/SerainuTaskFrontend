@@ -1,11 +1,15 @@
 <template>
   <v-container>
-      <v-divider></v-divider>
-    <h2 style="text-align:center;font-family:'times new roman">Threat Indicator And Exposure Dashboard.</h2>
+    <v-divider></v-divider>
+    <h2 style="text-align:center;font-family:'times new roman">
+      {{ organisationDetailSGetter.name_of_organisation }} Threat Indicator And Exposure DashBoard
+    </h2>
     <v-divider></v-divider>
     <v-row>
       <v-col md="4">
-        <v-card style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%;height: 100%;">
+        <v-card
+          style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%;height: 100%;"
+        >
           <v-card-title class="text-center">
             <b>Overall Threat Exposure Score.</b>
           </v-card-title>
@@ -276,7 +280,7 @@ import Chart2 from "chartjs-gauge";
 import { mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["dataGetter"]),
+    ...mapGetters(["dataGetter", "organisationDetailSGetter"]),
   },
   mounted() {
     // var ctx = document.getElementById("myChart").getContext("2d");
@@ -414,10 +418,8 @@ export default {
 
     console.log(chart);
   },
-    created() {
-    
-  },
-  name: "HelloWorld",
+  created() {},
+  name: "ThreatIndicatorAndExposureDashBoard",
 
   data: () => ({}),
 };
